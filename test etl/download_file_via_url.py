@@ -23,8 +23,9 @@ month_str=date_str[:6]
 taiwan_date_str = '{0}/{1:02d}/{2:02d}'.format(int(date_str[:4]) - 1911, int(date_str[4:6]), int(date_str[6:]))
 
 # 上市：
-url1 = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php?download=csv&qdate={}&selectType=ALL".format(taiwan_date_str)
-url2 = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX3_print.php?genpage=genpage/Report{}/A112{}ALL_1.php&type=csv".format(month_str, date_str)
+url_html = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php?download=&qdate={}&selectType=ALL".format(taiwan_date_str)
+url_csv = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php?download=csv&qdate={}&selectType=ALL".format(taiwan_date_str)
+url_excel = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX3_print.php?genpage=genpage/Report{}/A112{}ALL_1.php&type=csv".format(month_str, date_str)
 
 # 上櫃：
 # http://www.tpex.org.tw/ch/stock/aftertrading/DAILY_CLOSE_quotes/stk_quote_download.php?d=105/07/12&s=0,asc,0
@@ -33,6 +34,12 @@ url2 = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX3_print.php?
 ttime = str(int(time.time() * 100))
 url_otc = 'http://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_result.php?l=zh-tw&d={}&_={}'.format(taiwan_date_str, ttime)
 
+print ("downloading {} from tse:".format(date_str), url_html)
+urllib.request.urlretrieve(url_html, date_str+".html")  #python 3
+print ("downloading {} from tse:".format(date_str), url_csv)
+urllib.request.urlretrieve(url_csv, date_str+".csv")  #python 3
+exit()
+
 print ("testing the download file to long:", url_otc)
 # issue caused by excel's reader
 r = requests.get(url_otc)
@@ -40,11 +47,9 @@ with open("0-otc.csv", "wb" ) as code:
     code.write(r.content)
     code.close()
 
-exit()
-
-print ("downloading version 1 with urllib:", url1)
+print ("downloading version 1 with urllib:", url_csv)
 #urllib.urlretrieve(url1, "1.csv")  #python 2
-urllib.request.urlretrieve(url1, "1-urlretrieve.csv")  #python 3
+urllib.request.urlretrieve(url_csv, "1-urlretrieve.csv")  #python 3
 
 print ("downloading version 1 with requests.post")
 payload = {
@@ -62,14 +67,14 @@ with open("1-post.csv", "wb") as code:
     code.close()
 
 print ("downloading version 1 with requests.get")
-r = requests.get(url1)
+r = requests.get(url_csv)
 with open("1-get.csv", "wb" ) as code:
     code.write(r.content)
     code.close()
 
 print ("downloading version 2 with urllib2")
 #f = urllib2.urlopen(url)  #python 2
-f = urllib.request.urlopen(url2)  #python 3
+f = urllib.request.urlopen(url_excel)  #python 3
 data = f.read()
 with open("2-urlopen.csv", "wb") as code:
     code.write(data)

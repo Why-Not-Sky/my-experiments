@@ -3,11 +3,14 @@
 import petl as etl
 import csv
 import psycopg2
+from lxml import etree, html
+import re
+import string
 
 # set up a CSV file to demonstrate with
 _CONNECTION = 'dbname=stock user=stock password=stock'
 _DATA_PATH = './data/'
-_HEADER = 'symbol_id,trade_date,volume,amout,open,high,low,close,change,trans'.split(',')
+_HEADER = 'symbol_id,trade_date,volume,amount,open,high,low,close,change,trans'.split(',')
 _ORIGINAL = _DATA_PATH + 'before.csv' #'origin.csv'
 _TRANSFORMED = _DATA_PATH + 'after.csv'
 _SELECTED = _DATA_PATH + 'select.csv'
@@ -15,6 +18,69 @@ _SELECTED = _DATA_PATH + 'select.csv'
 '''---note---
   2017/07/25 CSV file cannot conatain the empty row...
 '''
+FILE_NAME = 'tse'
+HTML_FILE = '{}.html'.format(FILE_NAME)
+CSV_FILE = '{}.csv'.format(FILE_NAME)
+
+_CHINESE_HEADER_LINE = '證券代號,證券名稱,成交股數,成交筆數,成交金額,開盤價,最高價,最低價,收盤價,漲跌(+/-),漲跌價差,最後揭示買價,最後揭示買量,最後揭示賣價,最後揭示賣量,本益比'
+_CHINESE_HEADER = _CHINESE_HEADER_LINE.split(',')
+_ENGLISH_HEADER = 'symbol_id,name,volume,trans,amount,open,high,low,close,sign,change,trans,af_buy,af_buy_amount,af_sell, af_sell_amout,pe'.split(',')
+
+_HEADER_LINE = 'symbol_id,trade_date,volume,amount,open,high,low,close,change,trans'
+_HEADER = _HEADER_LINE.split(',')
+_CONVERT_ZERO = ['', '--', '---', 'x', 'X', 'null', 'NULL']   # convert illegal value into 0
+
+
+def get_table():
+    infile = open(HTML_FILE, 'r')  # 'r')  # otc's object type is str
+    data = infile.read()
+    tree = html.fromstring(data)
+
+    table = tree.xpath('/html/body/table/tbody/tr')
+    rows = list(map(lambda x: x.xpath('td/text()'), table))
+
+    return (rows)
+
+def _clean_row(self, row):
+    # f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else x
+
+    for index, content in enumerate(row):
+        '''decimal with , thousand'''
+        col = re.sub(",", "", content.strip())
+        # filter() in python 3 does not return a list, but a iterable filter object. Call next() on it to get the first filtered item:
+        col = ''.join(list(filter(lambda x: x in string.printable, col)))
+        # transform non-decimal number into decimal
+        row[index] = '0' if (col in _CONVERT_ZERO) else col
+
+def test_transform():
+    src_table=get_table()
+    #dest_table=etl.headers.pushheader(src_table, _HEADER)
+    dest_table = etl.headers.pushheader(src_table, _ENGLISH_HEADER) # _CHINESE_HEADER)
+
+    f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else x
+    #to-do: sign = '-' if len(sign) == 1 and sign[0] == u'－' else ''
+    '''
+    row = self._clean_row([
+                tds[0].strip(),  # symbol
+                date_str,  # 日期
+                tds[2],  # 成交股數
+                tds[4],  # 成交金額
+                tds[5],  # 開盤價
+                tds[6],  # 最高價
+                tds[7],  # 最低價
+                tds[8],  # 收盤價
+                sign + tds[9],  # 漲跌價差
+                tds[3],  # 成交筆數
+            ])
+    '''
+
+    dest_table = etl.transform.conversions.convertall(dest_table, f_clean)
+
+    print (dest_table)
+
+    with open(CSV_FILE, 'w') as f:
+        writer = csv.writer(f)
+        writer.writerows(dest_table)
 
 def test_etl_csv():
     table1 = [['foo', 'bar'],
@@ -28,25 +94,6 @@ def test_etl_csv():
     # now demonstrate the use of fromcsv()
     table2 = etl.fromcsv('example.csv')
     print(table2)
-
-def test_transform():
-    src = _ORIGINAL
-    dest = _TRANSFORMED
-    #_table = [_HEADER]
-    #
-
-    src_table=etl.fromcsv(src)
-    dest_table=etl.headers.pushheader(src_table, _HEADER)
-
-    f_clean = lambda x: '0' if (x in ['', '--', 'x', 'X', 'NULL']) else x
-    # ...or alternatively via a list
-    # table10 = etl.convert(table1, ['lower', float, lambda v: v * 2])
-    #petl.transform.conversions.convertall(table, *args, **kwargs)
-    dest_table = etl.transform.conversions.convertall(dest_table, f_clean)
-
-    with open(dest, 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(dest_table)
 
 def test_select_db():
     connection = psycopg2.connect(_CONNECTION)
@@ -89,7 +136,6 @@ def test_tse_etl():
     print('after load...')
     test_select_db()
 
-
 if __name__ == '__main__':
     #test_transform()
-    test_tse_etl()
+    test_transform()
