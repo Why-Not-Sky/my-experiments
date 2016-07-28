@@ -19,8 +19,8 @@ _SELECTED = _DATA_PATH + 'select.csv'
   2017/07/25 CSV file cannot conatain the empty row...
 '''
 FILE_NAME = 'tse'
-HTML_FILE = '{}.html'.format(FILE_NAME)
-CSV_FILE = '{}.csv'.format(FILE_NAME)
+HTML_FILE = '{}{}.html'.format(_DATA_PATH, FILE_NAME)
+CSV_FILE = '{}{}.csv'.format(_DATA_PATH, FILE_NAME)
 
 _CHINESE_HEADER_LINE = '證券代號,證券名稱,成交股數,成交筆數,成交金額,開盤價,最高價,最低價,收盤價,漲跌(+/-),漲跌價差,最後揭示買價,最後揭示買量,最後揭示賣價,最後揭示賣量,本益比'
 _CHINESE_HEADER = _CHINESE_HEADER_LINE.split(',')
@@ -52,10 +52,26 @@ def _clean_row(self, row):
         # transform non-decimal number into decimal
         row[index] = '0' if (col in _CONVERT_ZERO) else col
 
-def test_transform():
+def _clean_fun():
+    return(lambda x: '0' if (x in _CONVERT_ZERO) else x)
+
+def test_clean():
+    src = _ORIGINAL
+    dest = _TRANSFORMED
+
+    src_table=etl.fromcsv(src)
+
+    # test clean function
+    dest_table = etl.transform.conversions.convertall(src_table, _clean_fun)
+
+    # todo: test filter function
+
+    etl.tocsv(dest_table, CSV_FILE)
+
+def test_transform_from_html():
     src_table=get_table()
     #dest_table=etl.headers.pushheader(src_table, _HEADER)
-    dest_table = etl.headers.pushheader(src_table, _ENGLISH_HEADER) # _CHINESE_HEADER)
+    dest_table = etl.headers.pushheader(src_table, _CHINESE_HEADER) #_ENGLISH_HEADER) # _CHINESE_HEADER)
 
     f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else x
     #to-do: sign = '-' if len(sign) == 1 and sign[0] == u'－' else ''
@@ -75,12 +91,9 @@ def test_transform():
     '''
 
     dest_table = etl.transform.conversions.convertall(dest_table, f_clean)
-
     print (dest_table)
 
-    with open(CSV_FILE, 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(dest_table)
+    etl.tocsv(dest_table, CSV_FILE)
 
 def test_etl_csv():
     table1 = [['foo', 'bar'],
@@ -138,4 +151,4 @@ def test_tse_etl():
 
 if __name__ == '__main__':
     #test_transform()
-    test_transform()
+    test_transform_from_html()
