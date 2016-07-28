@@ -26,18 +26,10 @@ def get_from_file():
     html = etree.parse(HTML_FILE)
     result = etree.tostring(html, pretty_print=True)
     print(result)
-    infile = open(infname, 'r')  # 'r')  # otc's object type is str
+
+    infile = open(HTML_FILE, 'r')  # 'r')  # otc's object type is str
     data = infile.read()
-
-    # Parse page
-    tree = html.fromstring(data)
-
-'''
-        for tr in tree.xpath('//table[2]/tbody/tr'):
-            tds = tr.xpath('td/text()')
-
-            sign = tr.xpath('td/font/text()')
-'''
+    return (data)
 
 def get_table():
     infile = open(HTML_FILE, 'r')  # 'r')  # otc's object type is str

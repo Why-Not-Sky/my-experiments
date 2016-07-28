@@ -17,7 +17,7 @@ print (sys.getdefaultencoding(), locale.getpreferredencoding())
 locale.setlocale(locale.LC_ALL, '')
 
 #url1 = 'http://www.blog.pythonlibrary.org/wp-content/uploads/2012/06/wxDbViewer.zip'
-date_str='20160712'
+date_str='20041201' #''20160701'
 month_str=date_str[:6]
 #taiwan_date_str = '105/07/12'
 taiwan_date_str = '{0}/{1:02d}/{2:02d}'.format(int(date_str[:4]) - 1911, int(date_str[4:6]), int(date_str[6:]))
@@ -35,9 +35,9 @@ ttime = str(int(time.time() * 100))
 url_otc = 'http://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_result.php?l=zh-tw&d={}&_={}'.format(taiwan_date_str, ttime)
 
 print ("downloading {} from tse:".format(date_str), url_html)
-urllib.request.urlretrieve(url_html, date_str+".html")  #python 3
+urllib.request.urlretrieve(url_html, './' + date_str+".html")  #python 3
 print ("downloading {} from tse:".format(date_str), url_csv)
-urllib.request.urlretrieve(url_csv, date_str+".csv")  #python 3
+urllib.request.urlretrieve(url_csv,  './' + date_str+".csv")  #python 3
 exit()
 
 print ("testing the download file to long:", url_otc)

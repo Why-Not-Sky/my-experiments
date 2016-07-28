@@ -20,23 +20,6 @@ feature list:
 ---------------------------------------------------------------------------------------------------------------------------------------'''
 from lxml import etree, html
 
-
-def test_tse_html():
-    infname = './20160712.html'
-    infname = './tabl1.htm'
-    infile = open(infname, 'r')  # 'r')  # otc's object type is str
-    data = infile.read()
-
-    # Parse page
-    tree = html.fromstring(data)
-
-    for tr in tree.xpath('//table[2]/tbody/tr'):
-        tds = tr.xpath('td/text()')
-
-        sign = tr.xpath('td/font/text()')
-        sign = '-' if len(sign) == 1 and sign[0] == u'－' else ''
-
-
 def test_xpath():
     html = """
         <!DOCTYPE html>

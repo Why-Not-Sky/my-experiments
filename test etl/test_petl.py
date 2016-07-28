@@ -1,4 +1,18 @@
 # -*- coding: utf-8 -*-
+'''---------------------------------------------------------------------------------------------------------------------------------------
+version  date    author     memo
+------------------------------------------------------------------------------------------------------------------------------------------
+2016/07/28
+    http://blog.csdn.net/winterto1990/article/details/47903653
+    # test clean function where means only convert the row satisfied in where
+    # issue: error as assing lambada by defined function
+    # todo: sign = '-' if len(sign) == 1 and sign[0] == u'－' else ''
+             replace <td> <font color="#FF3300">＋</font> </td>:
+    # todo: add trade_date into the table
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+to-do:
+---------------------------------------------------------------------------------------------------------------------------------------'''
 
 import petl as etl
 import csv
@@ -18,28 +32,24 @@ _SELECTED = _DATA_PATH + 'select.csv'
 '''---note---
   2017/07/25 CSV file cannot conatain the empty row...
 '''
-FILE_NAME = 'tse'
-HTML_FILE = '{}{}.html'.format(_DATA_PATH, FILE_NAME)
-CSV_FILE = '{}{}.csv'.format(_DATA_PATH, FILE_NAME)
+#FILE_NAME = 'tse'  # only the data for the table, change xpath for the full
+_TSET_FILE = '20041201'
+_TRADE_DATE = '20160712' #'20041201' #''20160712'
+_FILE_NAME = _TRADE_DATE  # only the data for the table, change xpath for the full
+_HTML_FILE = '{}{}.html'.format(_DATA_PATH, _FILE_NAME)
+_CSV_FILE = '{}{}.csv'.format(_DATA_PATH, _FILE_NAME)
 
 _CHINESE_HEADER_LINE = '證券代號,證券名稱,成交股數,成交筆數,成交金額,開盤價,最高價,最低價,收盤價,漲跌(+/-),漲跌價差,最後揭示買價,最後揭示買量,最後揭示賣價,最後揭示賣量,本益比'
 _CHINESE_HEADER = _CHINESE_HEADER_LINE.split(',')
-_ENGLISH_HEADER = 'symbol_id,name,volume,trans,amount,open,high,low,close,sign,change,trans,af_buy,af_buy_amount,af_sell, af_sell_amout,pe'.split(',')
+_ENGLISH_HEADER = 'symbol_id,name,volume,trans,amount,open,high,low,close,sign,change,af_buy,af_buy_amount,af_sell, af_sell_amout,pe'.split(',')
 
 _HEADER_LINE = 'symbol_id,trade_date,volume,amount,open,high,low,close,change,trans'
 _HEADER = _HEADER_LINE.split(',')
 _CONVERT_ZERO = ['', '--', '---', 'x', 'X', 'null', 'NULL']   # convert illegal value into 0
 
+_XPATH_TSE = '//table[2]/tbody/tr'
+_XAPTH_TSE_SIMPLE = '/html/body/table/tbody/tr'
 
-def get_table():
-    infile = open(HTML_FILE, 'r')  # 'r')  # otc's object type is str
-    data = infile.read()
-    tree = html.fromstring(data)
-
-    table = tree.xpath('/html/body/table/tbody/tr')
-    rows = list(map(lambda x: x.xpath('td/text()'), table))
-
-    return (rows)
 
 def _clean_row(self, row):
     # f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else x
@@ -49,51 +59,92 @@ def _clean_row(self, row):
         col = re.sub(",", "", content.strip())
         # filter() in python 3 does not return a list, but a iterable filter object. Call next() on it to get the first filtered item:
         col = ''.join(list(filter(lambda x: x in string.printable, col)))
-        # transform non-decimal number into decimal
         row[index] = '0' if (col in _CONVERT_ZERO) else col
 
+# error as assigned into convertall method
 def _clean_fun():
     return(lambda x: '0' if (x in _CONVERT_ZERO) else x)
 
+# error as assigned into convertall method
+def _filter_fun():
+    symbol_list = ['0050', '0051', '1503']
+    return (lambda rec: rec.symbol_id in symbol_list)
+
 def test_clean():
+    '''input file should be trimmed'''
     src = _ORIGINAL
     dest = _TRANSFORMED
 
     src_table=etl.fromcsv(src)
-
-    # test clean function
-    dest_table = etl.transform.conversions.convertall(src_table, _clean_fun)
+    dest_table = etl.headers.pushheader(src_table, _HEADER)
+    print(dest_table)
 
     # todo: test filter function
+    # filter unwanted records: keep only on the market/otc
+    symbol_list = ['0050', '0051', '1503']
+    #return (lambda rec: rec.symbol_id in symbol_list)  # len(id)==4 )
 
-    etl.tocsv(dest_table, CSV_FILE)
+    dest_table = etl.select(dest_table, lambda rec: rec.symbol_id in symbol_list) #lambda rec: len(rec.symbol_id) == 4)
+    print (dest_table)
+
+    # test clean function where means only convert the row satisified in where
+    # error as assing lambada by defined function
+    f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else x
+    dest_table = etl.transform.conversions.convertall(dest_table, f_clean) #, where=lambda r: len(r.symbol_id) == 4)
+    print(dest_table)
+
+    etl.tocsv(dest_table, dest)
+
+def get_table():
+    infile = open(_HTML_FILE, 'r')  # 'r')  # otc's object type is str
+    data = infile.read()
+    data=data.replace('<font color="#FF3300">＋</font>', '+')
+    data=data.replace('<font color="#009900">－</font>', '-')
+    tree = html.fromstring(data)
+
+    table = tree.xpath(_XPATH_TSE) # '/html/body/table/tbody/tr')  # for tse with only 1 table
+    rows = list(map(lambda tr: tr.xpath('td/text()'), table))
+    #sign = tr.xpath('td/font/text()')
+
+    with open(_HTML_FILE+'.bak', 'w') as f:
+        f.write(data)
+
+    return (rows)
 
 def test_transform_from_html():
     src_table=get_table()
+    #for l in src_table[:10]: print(l)
+
     #dest_table=etl.headers.pushheader(src_table, _HEADER)
-    dest_table = etl.headers.pushheader(src_table, _CHINESE_HEADER) #_ENGLISH_HEADER) # _CHINESE_HEADER)
+    dest_table = etl.headers.pushheader(src_table, _ENGLISH_HEADER) #_CHINESE_HEADER) #_ENGLISH_HEADER) # _CHINESE_HEADER)
+    #print (etl.cut(dest_table, 'symbol_id', 'close', 'sign', 'change'))
 
-    f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else x
-    #to-do: sign = '-' if len(sign) == 1 and sign[0] == u'－' else ''
-    '''
-    row = self._clean_row([
-                tds[0].strip(),  # symbol
-                date_str,  # 日期
-                tds[2],  # 成交股數
-                tds[4],  # 成交金額
-                tds[5],  # 開盤價
-                tds[6],  # 最高價
-                tds[7],  # 最低價
-                tds[8],  # 收盤價
-                sign + tds[9],  # 漲跌價差
-                tds[3],  # 成交筆數
-            ])
-    '''
+    # filter the fields expected
+    # todo: filter result according to the symbol table
+    dest_table = etl.select(dest_table, lambda rec: len(rec.symbol_id.strip(" ")) <= 4)
 
+    # select the columns to insert
+    # string to the args?  can't catch the signed value
+    dest_table =  etl.cut(dest_table, 0, 1, 4, 5, 6, 7, 8, 9, 10, 3)
+    dest_table = etl.rename(dest_table, 'name', 'trade_date')
+
+    # convert the big number 1,000,000 --> 10000000
+    # convert unexpected 'x' --> '0'...
+    f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else re.sub(",", "", x.strip())
     dest_table = etl.transform.conversions.convertall(dest_table, f_clean)
-    print (dest_table)
 
-    etl.tocsv(dest_table, CSV_FILE)
+    # http://petl.readthedocs.io/en/latest/transform.html#converting-values
+    dest_table = etl.transform.conversions.convert(dest_table
+                                                    , {'trade_date': lambda v, row: _TRADE_DATE
+                                                    #, 'change': lambda v, row: (row.sign + ':' + str(len(row.sign)) + ':' + row.sign[0] + ':' + v)}
+                                                    , 'change': lambda v, row: ('-' + v) if (len(row.sign) == 1 and (row.sign[0] in ['-', u'－'])) else v}
+                                                    , pass_row=True)  # cause _trade_date not worked --> need row values
+
+    dest_table = etl.cutout(dest_table, 'sign')
+    #print (dest_table)
+
+    # save to csv file.
+    etl.tocsv(dest_table, _CSV_FILE)
 
 def test_etl_csv():
     table1 = [['foo', 'bar'],
@@ -144,11 +195,12 @@ def test_tse_etl():
     print('before load...')
     trade_date = '20160712'
     #test_extract_file()
-    test_transform()
+    test_transform_from_html()
     test_load_db(trade_date)
     print('after load...')
     test_select_db()
 
 if __name__ == '__main__':
     #test_transform()
+    #test_clean()
     test_transform_from_html()
