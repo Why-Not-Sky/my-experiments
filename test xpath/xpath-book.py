@@ -64,7 +64,7 @@ html='''
 </html>
 '''
 # get from file
-html = lxml.etree.parse('books.html')
+html = lxml.etree.parse('data/books.html')
 doc = lxml.html.document_fromstring(html)
 #使用绝对值
 print("总共有%d本书" %(len(doc.xpath('/html/body/bookstore/book'))))

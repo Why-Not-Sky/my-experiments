@@ -29,56 +29,76 @@ url_excel = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX3_print
 
 # 上櫃：
 # http://www.tpex.org.tw/ch/stock/aftertrading/DAILY_CLOSE_quotes/stk_quote_download.php?d=105/07/12&s=0,asc,0
-#url = 'http://www.tpex.org.tw/ch/stock/aftertrading/DAILY_CLOSE_quotes/stk_quote_download.php?d=105/07/12&s=0,asc,0'
+url_otc = 'http://www.tpex.org.tw/ch/stock/aftertrading/DAILY_CLOSE_quotes/stk_quote_download.php?d=105/07/12&s=0,asc,0'
 
-ttime = str(int(time.time() * 100))
-url_otc = 'http://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_result.php?l=zh-tw&d={}&_={}'.format(taiwan_date_str, ttime)
+from selenium import webdriver
 
-print ("downloading {} from tse:".format(date_str), url_html)
-urllib.request.urlretrieve(url_html, './' + date_str+".html")  #python 3
-print ("downloading {} from tse:".format(date_str), url_csv)
-urllib.request.urlretrieve(url_csv,  './' + date_str+".csv")  #python 3
-exit()
+def test_selenium():
+    # you can use driver = webdriver.PhantomJS()
+    # if you want a headless browser.
+    # You need to have PhantomJS installed in path
 
-print ("testing the download file to long:", url_otc)
-# issue caused by excel's reader
-r = requests.get(url_otc)
-with open("0-otc.csv", "wb" ) as code:
-    code.write(r.content)
-    code.close()
+    driver = webdriver.PhantomJS() # webdriver.Firefox()
 
-print ("downloading version 1 with urllib:", url_csv)
-#urllib.urlretrieve(url1, "1.csv")  #python 2
-urllib.request.urlretrieve(url_csv, "1-urlretrieve.csv")  #python 3
+    driver.get("http://www.tarlabs.com")
 
-print ("downloading version 1 with requests.post")
-payload = {
-    'download': 'csv',
-    'qdate': taiwan_date_str,
-    'selectType': 'ALL'
-}
-url = 'http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php'
-# http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php?download=csv&qdate=105/07/12&selectType=ALL
+    # will print the page source
+    print (driver.page_source)
 
-# Get html page and parse as tree
-r = requests.post(url, data=payload)
-with open("1-post.csv", "wb") as code:
-    code.write(r.content)
-    code.close()
+def test_download():
+    ttime = str(int(time.time() * 100))
+    url_otc = 'http://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_result.php?l=zh-tw&d={}&_={}'.format(taiwan_date_str, ttime)
 
-print ("downloading version 1 with requests.get")
-r = requests.get(url_csv)
-with open("1-get.csv", "wb" ) as code:
-    code.write(r.content)
-    code.close()
+    print ("downloading {} from tse:".format(date_str), url_html)
+    urllib.request.urlretrieve(url_html, './' + date_str+".html")  #python 3
+    print ("downloading {} from tse:".format(date_str), url_csv)
+    urllib.request.urlretrieve(url_csv,  './' + date_str+".csv")  #python 3
 
-print ("downloading version 2 with urllib2")
-#f = urllib2.urlopen(url)  #python 2
-f = urllib.request.urlopen(url_excel)  #python 3
-data = f.read()
-with open("2-urlopen.csv", "wb") as code:
-    code.write(data)
-    code.close()
+
+def test_urlretrieve():
+    print ("testing the download file to long:", url_otc)
+    # issue caused by excel's reader
+    r = requests.get(url_otc)
+    with open("0-otc.csv", "wb" ) as code:
+        code.write(r.content)
+        code.close()
+
+def test_urlretrieve():
+    print ("downloading version 1 with urllib:", url_csv)
+    #urllib.urlretrieve(url1, "1.csv")  #python 2
+    urllib.request.urlretrieve(url_csv, "1-urlretrieve.csv")  #python 3
+
+def test_request_post():
+    print ("downloading version 1 with requests.post")
+    payload = {
+        'download': 'csv',
+        'qdate': taiwan_date_str,
+        'selectType': 'ALL'
+    }
+    url = 'http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php'
+    # http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php?download=csv&qdate=105/07/12&selectType=ALL
+
+    # Get html page and parse as tree
+    r = requests.post(url, data=payload)
+    with open("1-post.csv", "wb") as code:
+        code.write(r.content)
+        code.close()
+
+def test_request_get():
+    print ("downloading version 1 with requests.get")
+    r = requests.get(url_csv)
+    with open("1-get.csv", "wb" ) as code:
+        code.write(r.content)
+        code.close()
+
+def test_urlopen():
+    print ("downloading version 2 with urllib2")
+    #f = urllib2.urlopen(url)  #python 2
+    f = urllib.request.urlopen(url_excel)  #python 3
+    data = f.read()
+    with open("2-urlopen.csv", "wb") as code:
+        code.write(data)
+        code.close()
 
 
 #f = urllib2.urlopen(url)
@@ -87,4 +107,9 @@ with open("2-urlopen.csv", "wb") as code:
 #with io.open("4.csv", "w", encoding="utf8") as code:
 #    code.write(data) #.decode('utf8'))
 
-
+if __name__ == '__main__':
+    #test_transform()
+    #test_clean()
+    #test_transform_from_html()
+    #test_urlopen()
+    test_selenium()
