@@ -19,6 +19,7 @@ feature list:
 
 ---------------------------------------------------------------------------------------------------------------------------------------'''
 from lxml import etree, html
+import web_utils
 
 def test_xpath():
     html = """
@@ -66,8 +67,28 @@ def test_xpath():
     con = selector.xpath('//a/@title')  # 使用相对路径定位 两者效果是一样的
     print (len(con), con[0], con[1])
 
+# Using Google Sheets as a basic web scraper
+# http://www.benlcollins.com/spreadsheets/google-sheet-web-scraper/
+HTML_NYTIMES = 'http://www.nytimes.com/2015/09/23/us/los-angeles-plans-100-million-effort-to-end-homelessness.html'
+
+def test_nytimes():
+    tree = web_utils.get_from_url(HTML_NYTIMES)
+    span = tree.xpath('//*[@id="story-meta-footer"]/p/span/a/span')
+    text = tree.xpath("//span[@class='byline-author']/text()")  # //*[@id="story-meta-footer"]/p/span/a/span
+    #http://stackoverflow.com/questions/16241197/xpath-to-retrieve-text-within-span
+    last = tree.xpath("//span[@class='byline-author']/text()[last()]")  # //*[@id="story-meta-footer"]/p/span/a/span
+
+    #tt = span[0].xpath("/text()")
+    #print (tt)   #not worked
+
+    print (span, span[0].text)
+    print (text, text[0])
+    print (last, last[0])
+    # print (author_chrome)   # same span
+
 def main():
     test_xpath()
+    test_nytimes()
 
 if __name__ == '__main__':
     main()

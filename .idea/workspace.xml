@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="618c4a7e-10b9-45cd-9259-058b48a93e53" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test xpath/test html.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test xpath/20160712.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test xpath/books.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test xpath/hello.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test xpath/quotes-tse.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test xpath/table1.html" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test xpath/scrape with lxml.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test xpath/stockCrawler.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test xpath/web_utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test etl/download_file_via_url.py" afterPath="$PROJECT_DIR$/test etl/download_file_via_url.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test xpath/xpath-book.py" afterPath="$PROJECT_DIR$/test xpath/xpath-book.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test xpath/test xpath.py" afterPath="$PROJECT_DIR$/test xpath/test xpath.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test xpath/xpath-stock.py" afterPath="$PROJECT_DIR$/test xpath/xpath-stock.py" />
     </list>
     <ignored path="my-experiments.iws" />
@@ -31,50 +27,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="xpath-stock.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="xpath-stock.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test xpath/xpath-stock.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="148" column="32" selection-start-line="148" selection-start-column="32" selection-end-line="148" selection-end-column="32" />
+            <state relative-caret-position="267">
+              <caret line="132" column="20" selection-start-line="132" selection-start-column="20" selection-end-line="132" selection-end-column="20" />
               <folding>
                 <element signature="e#977#1005#0" expanded="true" />
-                <element signature="e#2149#2259#0" expanded="false" />
-                <element signature="e#3396#4018#0" expanded="false" />
-                <element signature="e#6213#6816#0" expanded="false" />
-                <element signature="e#6954#7755#0" expanded="false" />
+                <element signature="e#2000#2951#0" expanded="false" />
+                <element signature="e#2977#3747#0" expanded="false" />
+                <element signature="e#3779#4763#0" expanded="false" />
+                <element signature="e#4790#5189#0" expanded="false" />
+                <element signature="e#5379#6180#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/codecs.py">
+      <file leaf-file-name="web_utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test xpath/web_utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4620">
-              <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RATE_105.HTML" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test xpath/data/RATE_105.HTML">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="21630" column="24" selection-start-line="21630" selection-start-column="24" selection-end-line="21630" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="download_file_via_url.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test etl/download_file_via_url.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="40" column="32" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="32" />
+            <state relative-caret-position="224">
+              <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
               <folding>
-                <element signature="e#106#119#0" expanded="true" />
+                <element signature="e#1183#1196#0" expanded="true" />
+                <element signature="e#1416#1909#0" expanded="false" />
+                <element signature="e#2154#2541#0" expanded="false" />
+                <element signature="e#2580#3215#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stockCrawler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test xpath/stockCrawler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="98" column="40" selection-start-line="98" selection-start-column="40" selection-end-line="98" selection-end-column="40" />
+              <folding>
+                <element signature="e#1085#1113#0" expanded="true" />
+                <element signature="e#1692#1802#0" expanded="false" />
+                <element signature="e#1838#2326#0" expanded="false" />
+                <element signature="e#2355#2515#0" expanded="false" />
+                <element signature="e#2566#2953#0" expanded="false" />
+                <element signature="e#2992#3627#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RATE_105_F.HTML" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test xpath/data/RATE_105_F.HTML">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-8">
+              <caret line="66" column="62" selection-start-line="66" selection-start-column="62" selection-end-line="66" selection-end-column="62" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -106,13 +113,17 @@
         <option value="$PROJECT_DIR$/test xpath/xpath sample.py" />
         <option value="$PROJECT_DIR$/test etl/data/tse.csv" />
         <option value="$PROJECT_DIR$/test etl/data/before.csv" />
-        <option value="$PROJECT_DIR$/test xpath/test xpath.py" />
         <option value="$PROJECT_DIR$/test etl/20041201.html" />
         <option value="$PROJECT_DIR$/test etl/test_petl.py" />
         <option value="$PROJECT_DIR$/test xpath/xpath-book.py" />
         <option value="$PROJECT_DIR$/test etl/download_file_via_url.py" />
         <option value="$PROJECT_DIR$/test xpath/test html.py" />
+        <option value="$PROJECT_DIR$/test xpath/scrape with lxml.py" />
+        <option value="$PROJECT_DIR$/test xpath/data/RATE_105_F.HTML" />
+        <option value="$PROJECT_DIR$/test xpath/stockCrawler.py" />
+        <option value="$PROJECT_DIR$/test xpath/web_utils.py" />
         <option value="$PROJECT_DIR$/test xpath/xpath-stock.py" />
+        <option value="$PROJECT_DIR$/test xpath/test xpath.py" />
       </list>
     </option>
   </component>
@@ -148,6 +159,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -222,79 +234,28 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/test etl/data" />
-      <recent name="$PROJECT_DIR$/test xpath" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test xpath/data" />
       <recent name="$PROJECT_DIR$/test etl/data" />
       <recent name="$PROJECT_DIR$/test etl" />
       <recent name="$PROJECT_DIR$/test xpath" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test xpath/data" />
+      <recent name="$PROJECT_DIR$/test etl/data" />
+      <recent name="$PROJECT_DIR$/test xpath" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.xpath-stock">
-    <configuration default="false" name="test_petl" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test etl" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="my-experiments" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test etl/test_petl.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="download_file_via_url" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test etl" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="my-experiments" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test etl/download_file_via_url.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="xpath sample" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test xpath" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="my-experiments" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test xpath/xpath sample.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.test xpath">
     <configuration default="false" name="xpath-stock" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -325,6 +286,57 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="my-experiments" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test xpath/test html.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="scrape with lxml" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test xpath" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="my-experiments" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test xpath/scrape with lxml.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="stockCrawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test xpath" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="my-experiments" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test xpath/stockCrawler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test xpath" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test xpath" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="my-experiments" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test xpath/test xpath.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -464,19 +476,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.test_petl" />
-      <item index="1" class="java.lang.String" itemvalue="Python.download_file_via_url" />
-      <item index="2" class="java.lang.String" itemvalue="Python.xpath sample" />
-      <item index="3" class="java.lang.String" itemvalue="Python.xpath-stock" />
-      <item index="4" class="java.lang.String" itemvalue="Python.test html" />
+      <item index="0" class="java.lang.String" itemvalue="Python.xpath-stock" />
+      <item index="1" class="java.lang.String" itemvalue="Python.test html" />
+      <item index="2" class="java.lang.String" itemvalue="Python.scrape with lxml" />
+      <item index="3" class="java.lang.String" itemvalue="Python.stockCrawler" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test xpath" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.xpath-stock" />
-        <item index="1" class="java.lang.String" itemvalue="Python.test html" />
-        <item index="2" class="java.lang.String" itemvalue="Python.download_file_via_url" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test_petl" />
-        <item index="4" class="java.lang.String" itemvalue="Python.xpath sample" />
+        <item index="0" class="java.lang.String" itemvalue="Python.test xpath" />
+        <item index="1" class="java.lang.String" itemvalue="Python.stockCrawler" />
+        <item index="2" class="java.lang.String" itemvalue="Python.xpath-stock" />
+        <item index="3" class="java.lang.String" itemvalue="Python.scrape with lxml" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test html" />
       </list>
     </recent_temporary>
   </component>
@@ -497,12 +509,12 @@
     <frame x="188" y="23" width="1149" height="805" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17145343" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24369016" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44084507" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43661973" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -601,23 +613,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/test xpath/xpath-stock.py</url>
-          <line>200</line>
+          <line>162</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/test xpath/xpath-stock.py</url>
-          <line>194</line>
+          <line>156</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/test xpath/xpath-stock.py</url>
-          <line>195</line>
+          <line>157</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/test xpath/test html.py</url>
           <line>32</line>
           <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test xpath/xpath-stock.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -627,46 +644,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="43" />
+      <option name="time" value="58" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/petl/io/sources.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/petl/io/csv_py3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/petl/util/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4800">
-          <caret line="335" column="0" selection-start-line="335" selection-start-column="0" selection-end-line="335" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/petl/transform/conversions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="206" column="0" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test etl/data/before.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="56" selection-start-line="4" selection-start-column="56" selection-end-line="4" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test etl/test_odo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -886,13 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test xpath/test xpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test xpath/xpath-book.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-196">
@@ -919,16 +894,6 @@
         <state relative-caret-position="4620">
           <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test etl/download_file_via_url.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="40" column="32" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="32" />
-          <folding>
-            <element signature="e#106#119#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -968,22 +933,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test xpath/data/RATE_105.CSV">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17565">
+        <state relative-caret-position="395">
           <caret line="1171" column="5" selection-start-line="1171" selection-start-column="5" selection-end-line="1171" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test xpath/scrape with lxml.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="e#617#645#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test etl/download_file_via_url.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="40" column="32" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="32" />
+          <folding>
+            <element signature="e#106#119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/lxml/html/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="727" column="0" selection-start-line="727" selection-start-column="0" selection-end-line="727" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test xpath/data/RATE_105_F.HTML">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8">
+          <caret line="66" column="62" selection-start-line="66" selection-start-column="62" selection-end-line="66" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test xpath/test xpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="93" column="10" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="10" />
+          <folding>
+            <element signature="e#926#954#0" expanded="true" />
+            <element signature="e#995#2385#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test xpath/web_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
+          <folding>
+            <element signature="e#1183#1196#0" expanded="true" />
+            <element signature="e#1416#1909#0" expanded="false" />
+            <element signature="e#2154#2541#0" expanded="false" />
+            <element signature="e#2580#3215#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test xpath/xpath-stock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="148" column="32" selection-start-line="148" selection-start-column="32" selection-end-line="148" selection-end-column="32" />
+        <state relative-caret-position="267">
+          <caret line="132" column="20" selection-start-line="132" selection-start-column="20" selection-end-line="132" selection-end-column="20" />
           <folding>
             <element signature="e#977#1005#0" expanded="true" />
-            <element signature="e#2149#2259#0" expanded="false" />
-            <element signature="e#3396#4018#0" expanded="false" />
-            <element signature="e#6213#6816#0" expanded="false" />
-            <element signature="e#6954#7755#0" expanded="false" />
+            <element signature="e#2000#2951#0" expanded="false" />
+            <element signature="e#2977#3747#0" expanded="false" />
+            <element signature="e#3779#4763#0" expanded="false" />
+            <element signature="e#4790#5189#0" expanded="false" />
+            <element signature="e#5379#6180#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test xpath/stockCrawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="98" column="40" selection-start-line="98" selection-start-column="40" selection-end-line="98" selection-end-column="40" />
+          <folding>
+            <element signature="e#1085#1113#0" expanded="true" />
+            <element signature="e#1692#1802#0" expanded="false" />
+            <element signature="e#1838#2326#0" expanded="false" />
+            <element signature="e#2355#2515#0" expanded="false" />
+            <element signature="e#2566#2953#0" expanded="false" />
+            <element signature="e#2992#3627#0" expanded="false" />
           </folding>
         </state>
       </provider>
