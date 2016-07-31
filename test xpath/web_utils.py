@@ -28,7 +28,7 @@ import lxml
 import requests
 import re
 
-def save_to_file(url, fname):
+def save_html(url, fname):
     r = requests.get(url)
 
     with open(fname, "wb") as code:

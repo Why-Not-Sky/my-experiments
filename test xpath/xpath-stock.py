@@ -26,6 +26,7 @@ import lxml
 from lxml.html.clean import clean_html
 
 import web_utils
+import stockCrawler
 
 TRADE_DATE='20041201' #''20160701'
 #taiwan_date_str = '105/07/12'
@@ -44,14 +45,14 @@ HEADLINE_RATE_105 = '代號,公司,扣抵稅率,配息,除息日,配股,除權�
 HEADER_RATE_105 = HEADLINE_RATE_105.split(',')
 
 def get_stock_by_element():
-    doc = get_from_file(HTML_RATE_015)
+    doc = web_utils.get_from_file(HTML_RATE_015)
     #cleaner = lxml.html.cleaner(page_structure=False, links=False)
     doc = clean_html(doc)
 
     # <td><a href="http://tw.stock.yahoo.com/d/s/dividend_1101.html" target="_blank">台泥</a></td>
     #elist = doc.xpath('//*[@id="example"]/tbody/tr[1]/td[2]')  # //*[@id="example"]/tbody/tr[1]/td[2]  --
     elist = doc.xpath('//*[@id="example"]/tbody/tr')  # //*[@id="example"]/tbody/tr[1]/td[2]  --
-    f_parse = lambda x: get_text(x)
+    f_parse = lambda x: web_utils.get_text(x)
     table = [map(f_parse, el.xpath('td')) for el in elist]
 
     #solution 2: loop
@@ -69,32 +70,15 @@ def get_stock_by_element():
     #print (etl.cut(table, *range(0, 12)))
     #print([i for i in elist[0].itertext()])
     #print([i.text_content() for i in elist])
-    #print (get_text(elist[0]))
 
 def test_exright():
-    #save_to_file(URL_RATE_105, HTML_RATE_015)
-    tree = get_from_file(HTML_RATE_015)                    #UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb1 in position 5608: invalid start byte
-
-    rlist = tree.xpath('//*[@id="example"]/tbody/tr')      #--> table/ thead | tbody //*[@id="example"]/tbody
-    f_parse = lambda x: parse_text(x)
-
-    table = [map(f_parse, el.xpath('td')) for el in rlist]
-    table =  etl.headers.pushheader(table, HEADER_RATE_105)
-    table = etl.sort(table, 0)
-    print (table)
-    etl.tocsv(table, CSV_RATE_015, encoding='utf8')
-
-    ''' get the chinaese name
-    sname = tree.xpath(
-        '//*[@id="example"]/tbody/tr/td/*[@target="_blank"]/text()')  # --> table/ thead | tbody //*[@id="example"]/tbody
-    # print(sname)
-    '''
+    stockCrawler.get_exwright(105)
 
 def test_exright_error():
     #tree = get_from_url(URL_RATE_105)
     tree = web_utils.get_from_file(HTML_RATE_015)  # UnicodeDecodeError: 'utf-8' codec can't decode byte 0xb1 in position 5608: invalid start byte
 
-    f_parse_td = lambda c: parse_text(c)
+    f_parse_td = lambda c: web_utils.parse_text(c)
 
     # only 1 list generated
     tds = tree.xpath('//*[@id="example"]/tbody/tr/td')  # --> table/ thead | tbody //*[@id="example"]/tbody
@@ -114,32 +98,44 @@ def test_exright_error():
 
     print (dest_table)
 
+_CHINESE_HEADER_LINE = '證券代號,證券名稱,成交股數,成交筆數,成交金額,開盤價,最高價,最低價,收盤價,漲跌(+/-),漲跌價差,最後揭示買價,最後揭示買量,最後揭示賣價,最後揭示賣量,本益比'
+_CHINESE_HEADER = _CHINESE_HEADER_LINE.split(',')
+_ENGLISH_HEADER = 'symbol_id,name,volume,trans,amount,open,high,low,close,sign,change,af_buy,af_buy_amount,af_sell, af_sell_amout,pe'.split(',')
+
+_HEADER_LINE = 'symbol_id,trade_date,volume,amount,open,high,low,close,change,trans'
+_HEADER = _HEADER_LINE.split(',')
+
 def get_table_tse():
     '''
     infile = open(HTML_STOCK, 'r')  # 'r')  # otc's object type is str
     data = infile.read()
     tree = html.fromstring(data)
     '''
-    tree = get_from_file(HTML_STOCK)  # parse error
 
-    table = tree.xpath('/html/body/table/tbody/tr')
-    rows = map(lambda x: x.xpath('td/text()'), table)
+    tree = web_utils.get_from_file(HTML_STOCK)  # parse error
+
+    _CONVERT_ZERO = ['', '--', '---', 'x', 'X', 'null', 'NULL']  # convert illegal value into 0
+    f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else re.sub(",", "", x.strip())
+    f_parse = lambda x: web_utils.get_text(x)
+
+    elist = tree.xpath('/html/body/table/tbody/tr')
+    table_ok = [map(f_parse, el.xpath('td')) for el in elist]
+    table = [map(f_clean, el.xpath('td/text()')) for el in elist]
+
+    table = etl.headers.pushheader(table, _CHINESE_HEADER)
+    print (etl.sort(table, 0))
+
+    rows = map(lambda x: x.xpath('td/text()'), elist)
+    rows = etl.headers.pushheader(rows, _CHINESE_HEADER)
+    rows = etl.transform.conversions.convertall(rows, f_clean)
+
     rows = etl.sort(rows, 0)
-
     print (rows)
     #print(etl.cut(rows, *range(0, len(rows[0])-1)))
 
-def main():
-    #get_table_tse()
-    #get_table()
-    #test_nytimes()
-    #test_wright()
-    #test_wright_loop()   # ok
-    #test_etree()
-    get_stock_by_element()
-
 def test_xpath():
     #html = etree.parse(HTML_FILE)
+    HTML_FILE= HTML_STOCK
     infile = open(HTML_FILE, 'r')  # 'r')  # otc's object type is str
     data = infile.read()
 
@@ -163,6 +159,10 @@ def test_xpath():
     print(result)
     print(len(result), type(result))
     print(result[0], len(result[0]), type(result[0]))
+
+def main():
+    get_table_tse()
+    #get_stock_by_element()
 
 if __name__ == '__main__':
     main()
