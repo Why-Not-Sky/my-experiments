@@ -12,8 +12,6 @@ version  date    author     memo
     #http: // stackoverflow.com / questions / 12468179 / unicodedecodeerror - utf8 - codec - cant - decode - byte - 0x9c
     with codecs.open(html_file, "r", encoding='utf-8', errors='ignore') as fdata:
           tree = html.fromstring(fdata.read())
-
-
 ---------------------------------------------------------------------------------------------------------------------------------------'''
 from lxml import etree, html
 from urllib.request import urlopen
@@ -104,6 +102,11 @@ _ENGLISH_HEADER = 'symbol_id,name,volume,trans,amount,open,high,low,close,sign,c
 
 _HEADER_LINE = 'symbol_id,trade_date,volume,amount,open,high,low,close,change,trans'
 _HEADER = _HEADER_LINE.split(',')
+_CONVERT_ZERO = ['', '--', '---', 'x', 'X', 'null', 'NULL']  # convert illegal value into 0
+
+
+def _clean(x):
+    return('0' if (x in _CONVERT_ZERO) else re.sub(",", "", x.strip()))
 
 def get_table_tse():
     '''
@@ -114,21 +117,24 @@ def get_table_tse():
 
     tree = web_utils.get_from_file(HTML_STOCK)  # parse error
 
-    _CONVERT_ZERO = ['', '--', '---', 'x', 'X', 'null', 'NULL']  # convert illegal value into 0
     f_clean = lambda x: '0' if (x in _CONVERT_ZERO) else re.sub(",", "", x.strip())
     f_parse = lambda x: web_utils.get_text(x)
+    f_parse_clean = lambda x: _clean(web_utils.get_text(x))
 
     elist = tree.xpath('/html/body/table/tbody/tr')
-    table_ok = [map(f_parse, el.xpath('td')) for el in elist]
-    table = [map(f_clean, el.xpath('td/text()')) for el in elist]
 
+    #solution 1
+    table = [map(f_parse_clean, el.xpath('td')) for el in elist]
+
+    #solution 2
+    table = [map(f_parse, el.xpath('td')) for el in elist]
     table = etl.headers.pushheader(table, _CHINESE_HEADER)
-    print (etl.sort(table, 0))
+    table = etl.transform.conversions.convertall(table, f_clean)
+    print(etl.sort(table, 0))
 
+    #wrong: cant' find the looped data...<a></a>
     rows = map(lambda x: x.xpath('td/text()'), elist)
     rows = etl.headers.pushheader(rows, _CHINESE_HEADER)
-    rows = etl.transform.conversions.convertall(rows, f_clean)
-
     rows = etl.sort(rows, 0)
     print (rows)
     #print(etl.cut(rows, *range(0, len(rows[0])-1)))
